@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  obsidian-remote:
+    image: ghcr.io/sytone/obsidian-remote:latest
+    container_name: obsidian-remote
+    volumes:
+      # Map your main Obsidian vault directory to /vaults inside the container
+      - /Users/erauner/git/side/blinko/main:/vaults
+      # Map your Obsidian config directory (if needed by the image) to /config
+      - /Users/erauner/git/side/blinko/config:/config
+      # Add other volume mappings if required
+      # - /path/to/other/data:/container/path
+    ports:
+      # Map host port 8080 to container port 8080
+      - "8080:8080"
+      # Map host port 27123 to container port 27123 (likely for the insecure API if enabled)
+      - "27123:27123"
+      # Add other port mappings if required (e.g., for a secure port if the image supports it)
+      # - "27124:27124"
+    # environment:
+      # Add any necessary environment variables here
+      # - API_KEY=your_api_key_here # Example, check image documentation for specifics
+      # - TZ=Your/Timezone # Example: America/New_York
+    # restart: unless-stopped # Optional: Define restart policy (e.g., always, unless-stopped, on-failure)
+    # Add other configurations as needed based on the image documentation
+    # healthcheck: # Example healthcheck
+    #   test: ["CMD", "curl", "-f", "http://localhost:8080"]
+    #   interval: 1m30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s
+
+# You can run this using 'docker-compose up -d' in the same directory as this file.
+# Use 'docker-compose down' to stop and remove the container.
+# Use 'docker-compose logs -f obsidian-remote' to view logs.
